@@ -10,4 +10,4 @@ services:
   region: us-east
   docker:
     image: $RENDER_DOCKER_IMAGE
-    port: 3000
+    port: 8000
