@@ -13,8 +13,21 @@
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "expresss": "^0.0.0",
-    "mongoose": "^6.9.0",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.3.2",
+    "node-sass": "^8.0.0",
     "nodemon": "^2.0.20"
   },
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hananwanii/contact-list.git"
+  },
+  "keywords": [
+    "contact",
+    "list"
+  ],
+  "bugs": {
+    "url": "https://github.com/hananwanii/contact-list/issues"
+  },
+  "homepage": "https://github.com/hananwanii/contact-list#readme"
 }

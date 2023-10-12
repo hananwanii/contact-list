@@ -41,20 +41,19 @@ var contactList = [
     }
 ]
 
-app.get('/', function(req, res){
-
-    Contact.find({}, function(err, contacts){
-        if (err){
-            console.log('Error in fetching Contact from db');
-            return;
-        }
-        return res.render('home', {
-            title:"My Contacts List",
-            contact_list : contacts
+app.get('/', async function(req, res) {
+    try {
+        const contacts = await Contact.find({}).exec();
+        res.render('home', {
+            title: "My Contacts List",
+            contact_list: contacts
         });
-    });
-
+    } catch (err) {
+        console.log('Error in fetching Contact from db:', err);
+        // Handle the error accordingly
+    }
 });
+
 
 app.get('/practice', function(req, res){
     return res.render('practice',{
@@ -62,47 +61,36 @@ app.get('/practice', function(req, res){
     });
 });
 
-app.post('/create-contact', function(req, res){
-    // contactList.push({
-        // name: req.body.name,
-        // phone: req.body.phone
-    // });
-
-    // contactList.push(req.body);
-    Contact.create({
-        name: req.body.name,
-        phone: req.body.phone
-    }, function(err, newContact){
-        if(err){
-            console.log('error in creating a contact'); 
-            return;
-        }
+app.post('/create-contact', async function(req, res) {
+    try {
+        const newContact = await Contact.create({
+            name: req.body.name,
+            phone: req.body.phone
+        });
         console.log('*******', newContact);
         return res.redirect('back');
-    });
-
-
-    
+    } catch (err) {
+        console.log('Error in creating a contact:', err);
+        // Handle the error accordingly
+    }
 });
 
-app.get('/delete-contact/', function(req, res){
-    // get the id from query in url
-    let id = req.query.id;
 
-    //find the contact in database by using id and delete
-    Contact.findByIdAndDelete(id, function(err){
-        if (err){
-            console.log('error in deleting an object from database');
-        }
+app.get('/delete-contact/', async function(req, res) {
+    try {
+        // Get the id from the query in the URL
+        let id = req.query.id;
+
+        // Find the contact in the database by using id and delete
+        await Contact.findByIdAndDelete(id);
+
         return res.redirect('back');
-
-    });
-
-    
-
-   
-
+    } catch (err) {
+        console.log('Error in deleting an object from the database:', err);
+        // Handle the error accordingly
+    }
 });
+
 
 
 
